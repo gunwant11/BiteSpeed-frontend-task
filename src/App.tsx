@@ -9,6 +9,7 @@ import {
   ReactFlowProvider,
   BackgroundVariant,
   OnConnect,
+  Edge,
 } from "reactflow";
 import { useDrop } from 'react-dnd'
 
@@ -16,11 +17,12 @@ import 'reactflow/dist/style.css';
 
 import Navbar from './components/Navbar';
 import NodePanal from './components/NodePanal';
-import { initialNodes, nodeTypes } from './nodes';
-import { initialEdges } from './edges';
+import { nodeTypes } from './nodes';
 
 export default function App() {
 
+  const initialNodes = [] satisfies Node[];
+  const initialEdges = [] satisfies Edge[];
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
