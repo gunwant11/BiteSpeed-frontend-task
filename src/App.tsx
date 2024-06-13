@@ -8,6 +8,7 @@ import {
   useEdgesState,
   ReactFlowProvider,
   BackgroundVariant,
+  OnConnect,
 } from "reactflow";
 import { useDrop } from 'react-dnd'
 
@@ -24,7 +25,7 @@ export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const onConnect = useCallback(
+  const onConnect: OnConnect = useCallback(
     (params) => {
       const { source } = params;
       // for one node source can only have one edge
