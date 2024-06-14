@@ -30,7 +30,6 @@ export default function App() {
   const onConnect: OnConnect = useCallback(
     (params) => {
       const { source } = params;
-      // for one node source can only have one edge
       const existingEdge = edges.find((edge) => edge.source === source);
       if (existingEdge) {
         return;
@@ -59,7 +58,6 @@ export default function App() {
         <Navbar />
         <div className='flex w-full h-full'>
           <div style={{ width: '100%', height: '100%' }} ref={drop}>
-
             <ReactFlow
               nodes={nodes}
               edges={edges}

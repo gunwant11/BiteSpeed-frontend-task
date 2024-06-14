@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import NodeCard from "./NodeCard";
 import { Node, useNodes } from "reactflow";
 import { ArrowLeft } from "lucide-react";
@@ -46,7 +46,7 @@ const NodePanal: React.FC<INodePanal> = ({ setNodes }) => {
     return (
         <div className=" w-[400px] border-l border-gray-300">
             {!selectedNode ? (
-                <div className=" w-full  overflow-y-scroll h-[calc(100vh-60px)] grid grid-cols-2 gap-4 p-4">
+                <div className=" w-full  overflow-y-scroll h-[calc(100vh - 60px)] grid grid-cols-2 gap-4 p-4 no-scrollbar">
                     <NodeCard setNodes={setNodes} />
                 </div>
             ) : (
@@ -64,6 +64,7 @@ const NodePanal: React.FC<INodePanal> = ({ setNodes }) => {
                             <textarea
                                 className="border border-gray-300 p-2 rounded-lg w-[300px] text-sm"
                                 value={selectedNode.data.label}
+                                defaultValue={selectedNode.data.label}
                                 onChange={nodeChangeHandeler}
                             />
                         </div>
