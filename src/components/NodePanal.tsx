@@ -14,33 +14,46 @@ const NodePanal: React.FC<INodePanal> = ({ setNodes }) => {
     const nodes = useNodes();
 
     useEffect(() => {
-        const node = nodes.filter((node) => node.selected);
-        if (node.length > 0) {
-            setSelectedNode(node[0] as Node);
-        } else {
+        if (!nodes || nodes.length === 0) {
             setSelectedNode(null);
+            return;
         }
+        const selectedNode = nodes.find((node) => node.selected) || null;
+        setSelectedNode(selectedNode as Node | null);
     }, [nodes]);
 
     const nodeChangeHandeler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const newNodes = nodes.map((node: Node) => {
-            if (selectedNode && node.id === selectedNode.id) {
-                node.data.label = e.target.value;
-            }
-            return node;
+        setNodes((nds) => {
+            const newNodes = nds.map((node: Node) => {
+                if (selectedNode && node.id === selectedNode.id) {
+                    node = {
+                        ...node,
+                        data: {
+                            ...node.data,
+                            label: e.target.value,
+                        },
+                    };
+                }
+                return node;
+            });
+            return newNodes;
         });
-        setNodes(newNodes);
     };
 
     const handeBack = () => {
         setSelectedNode(null);
-        const newNodes = nodes.map((node: Node) => {
-            if (selectedNode && node.id === selectedNode.id) {
-                node.selected = false;
-            }
-            return node;
+        setNodes((nds) => {
+            const newNodes = nds.map((node: Node) => {
+                if (selectedNode && node.id === selectedNode.id) {
+                    node = {
+                        ...node,
+                        selected: false,
+                    };
+                }
+                return node;
+            });
+            return newNodes;
         });
-        setNodes(newNodes);
     };
 
     return (
@@ -50,7 +63,7 @@ const NodePanal: React.FC<INodePanal> = ({ setNodes }) => {
                     <NodeCard setNodes={setNodes} />
                 </div>
             ) : (
-                <div className=" w-full  overflow-y-scroll h-[calc(100vh-60px)]  ">
+                <div className=" w-full  overflow-y-scroll h-[calc(100vh - 60px)]  ">
                     <div className="border-b border-gray-300 p-2 py-4 flex">
                         {" "}
                         <ArrowLeft size={22} onClick={handeBack} />{" "}

@@ -19,8 +19,6 @@ const NodeCard: React.FC<INodeCard> = ({ setNodes }) => {
     const { screenToFlowPosition } = useReactFlow();
     const createNode = (name: string, positionX: number, positionY: number) => {
 
-        console.log(name, positionX, positionY)
-
         const newNode: Node = {
             id: uuidv4(),
             type: 'text-message',
@@ -43,7 +41,6 @@ const NodeCard: React.FC<INodeCard> = ({ setNodes }) => {
         item: { name: 'New message', type: 'node' },
         end: (item: DropResult, monitor) => {
             const dropResult: { x: number, y: number } | null = monitor.getDropResult()
-            console.log(dropResult)
             if (item && dropResult) {
                 createNode(item.name, dropResult.x, dropResult.y)
             }
